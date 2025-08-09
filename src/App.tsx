@@ -13,10 +13,11 @@ function App() {
   const [titles, setTitles] = useState<Array<string>>([]);
   const [descriptions, setDescriptions] = useState<Array<string>>([]);
 
+  const apiKey = process.env.API_KEY;
+  console.log('API Key:', apiKey);
+
   //dotenv.config({ path: '.env.dev', debug: true});
 
-  //const apiKey = process.env.API_KEY;
-  //console.log('API Key:', apiKey);
   const postedFromDate = new Date('2023-01-01');
   const postedToDate = new Date('2023-12-31');
   const limit = 10;
@@ -37,14 +38,25 @@ function App() {
     }
   }
 
-  // const formattedPostedFromDate = formatDateWithSlashes(postedFromDate);
-  // const formattedPostedToDate = formatDateWithSlashes(postedToDate);
+  const formattedPostedFromDate = formatDateWithSlashes(postedFromDate);
+  const formattedPostedToDate = formatDateWithSlashes(postedToDate);
 
-  // const ncodeArray = [336411,336412,336413,481211,481212];
+  const naicsCodeArray = [336411,336412,336413,481211,481212];
 
-  // for (let i = 0; i < ncodeArray.length; i++) {
-  //      api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, ncodeArray[i].toString()).then((data) => {setTitles(data.opportunitiesData[i].title); setDescriptions(data.opportunitiesData[i].description)});
+  let naicsCodeArrayAsString = "";
 
+  for (let i = 0; i < naicsCodeArray.length; i++) {
+    naicsCodeArrayAsString = naicsCodeArrayAsString + "," + naicsCodeArray[i].toString();
+  }
+
+  if (apiKey !== undefined) {
+    api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, naicsCodeArrayAsString);
+  }
+  else {
+    console.error('No api key found');
+    setError('No api key found');
+  }
+  
   return (
     <>
       <div className='d-flex flex-column align-items-center'>

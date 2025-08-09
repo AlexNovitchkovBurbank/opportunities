@@ -1,4 +1,4 @@
-const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToDate: string, limit: number, ncodeAsString: string) => {
+const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToDate: string, limit: number, naicsCodesInString: string) => {
     return fetch('https://api.sam.gov/opportunities/v2/search', {
                     method: 'GET',
                     headers: {
@@ -8,7 +8,7 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
                         'postedFrom': formattedPostedFromDate,
                         'postedTo': formattedPostedToDate,
                         'limit': limit.toString(),
-                        'ncode': ncodeAsString,
+                        'naicscode': naicsCodesInString,
                         'offset': '0',
                     }})
         .then(response => response.json())
