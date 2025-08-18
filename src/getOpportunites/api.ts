@@ -1,5 +1,8 @@
+import axios from "axios";
+import type { OpportunityApiData } from "../types/apiTypes";
+
 const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToDate: string, limit: number, naicsCodesInString: string) => {
-    return fetch('https://api.sam.gov/opportunities/v2/search', {
+    /* return await axios.get('https://api.sam.gov/opportunities/v2/search', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -11,11 +14,42 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
                         'naicscode': naicsCodesInString,
                         'offset': '0',
                     }})
-        .then(response => response.json())
+        .then(response => response.data)
         .catch(error => {
-        console.error('Error fetching opportunities:', error);
-        throw error;
-        });
+            console.error('Error fetching opportunities:', error);
+        }); */
+
+        const apiReturn: OpportunityApiData[] = [
+            {
+                name: "A",
+                infoJsonString: "",
+                noticeId: 1,
+                descriptionLink: "",
+                type: "A",
+                code: 3,
+                otherLinks: []
+            },
+            {
+                name: "A",
+                infoJsonString: "",
+                noticeId: 1,
+                descriptionLink: "",
+                type: "A",
+                code: 3,
+                otherLinks: []
+            },
+            {
+                name: "B",
+                infoJsonString: "",
+                noticeId: 1,
+                descriptionLink: "",
+                type: "B",
+                code: 3,
+                otherLinks: []
+            }
+        ]
+
+        return apiReturn
 }
 
 export default api;

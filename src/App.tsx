@@ -1,22 +1,23 @@
-import { useState, type FormEvent } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState, type FormEvent } from 'react'
 import './App.css'
 import api from './getOpportunites/api'
 import formatDateWithSlashes from './utilities/DateToString'
-import dotenv from 'dotenv';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import { debug } from 'console'
+import { OpportunitiesBarChart } from './chart'
+import { fillOpportunityFrequencyData } from './utilities/opportunityDataCreation'
+import type { OpportunityApiData } from './types/apiTypes'
+import type { OpportunityFrequency } from './types/chartTypes';
+import { NameDescriptionLinkTable } from './tables';
+import type { NameDescriptionLinkRecords } from './types/tableTypes';
+import { createNameDescriptionLinkRecords } from './utilities/createNameDescriptionLinkRecords';
 
 function App() {
   const [error, setError] = useState<string>("");
-  const [titles, setTitles] = useState<Array<string>>([]);
-  const [descriptions, setDescriptions] = useState<Array<string>>([]);
+  const [chartData, setChartData] = useState<OpportunityFrequency[]>([]);
+  const [nameDescriptionLinkRecords, setNameDescriptionLinkRecords] = useState<NameDescriptionLinkRecords[]>([]);
 
-  const apiKey = process.env.API_KEY;
+  const apiKey = import.meta.env.VITE_API_KEY;
   console.log('API Key:', apiKey);
-
-  //dotenv.config({ path: '.env.dev', debug: true});
 
   const postedFromDate = new Date('2023-01-01');
   const postedToDate = new Date('2023-12-31');
@@ -38,6 +39,14 @@ function App() {
     }
   }
 
+/*   
+  const dataPoints: ChartData[] = [
+    new ChartData("Jan", 200),
+    new ChartData("Feb", 300),
+    new ChartData("Apr", 300)
+  ];
+*/
+
   const formattedPostedFromDate = formatDateWithSlashes(postedFromDate);
   const formattedPostedToDate = formatDateWithSlashes(postedToDate);
 
@@ -49,14 +58,35 @@ function App() {
     naicsCodeArrayAsString = naicsCodeArrayAsString + "," + naicsCodeArray[i].toString();
   }
 
-  if (apiKey !== undefined) {
-    api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, naicsCodeArrayAsString);
-  }
-  else {
-    console.error('No api key found');
-    setError('No api key found');
-  }
-  
+  let opportunityApiData: OpportunityApiData[] = [];
+
+    useEffect(() => {
+      try {
+        const fetchOpportunities = () => {
+          if (apiKey !== undefined) {
+            opportunityApiData = api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, naicsCodeArrayAsString);
+
+            const nameDescriptionLinkRecords = createNameDescriptionLinkRecords(opportunityApiData);
+            const dataPoints = fillOpportunityFrequencyData(opportunityApiData);
+
+            console.log("dataPoints: " + JSON.stringify(dataPoints))
+            console.log("nameDescriptionLinkRecords: " + JSON.stringify(nameDescriptionLinkRecords))
+
+            setChartData(dataPoints);
+            setNameDescriptionLinkRecords(nameDescriptionLinkRecords)
+          }
+          else {
+            console.error('No api key found');
+            setError('No api key found');
+          }
+        }
+
+        fetchOpportunities()
+      } catch (e: any) {
+        setError(e)
+      } 
+    }, [])
+
   return (
     <>
       <div className='d-flex flex-column align-items-center'>
@@ -67,14 +97,13 @@ function App() {
           </div>
           <button type='submit' className='mt-2'>Submit</button>
         </form>
-        <div>{error}</div>
         <div className='d-flex flex-row align-items-center mt-4'>
           <label htmlFor='result' className='me-4'>Result:</label>
-          <textarea id='result' disabled={true}>
-            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-          </textarea>
+          <textarea id='result' disabled={true} value={error}></textarea>
         </div>
       </div>
+      <OpportunitiesBarChart dataPoints={chartData}/>
+      <NameDescriptionLinkTable nameDescriptionLinkRecords={nameDescriptionLinkRecords} />
     </>
   )
 }
