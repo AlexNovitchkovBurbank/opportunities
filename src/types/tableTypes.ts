@@ -1,10 +1,10 @@
 export class NameDescriptionLinkRecords {
-    constructor(type: string, opportunityLink: string) {
-        this.type = type
-        this.opportunityLink = opportunityLink
+    constructor(name: string, descriptionLink: string) {
+        this.name = name
+        this.descriptionLink = descriptionLink
     }
-    type: string
-    opportunityLink: string
+    name: string
+    descriptionLink: string
 }
 
 export interface nameDescriptionLinkTableProps {

@@ -3,7 +3,7 @@ import './App.css'
 import api from './getOpportunites/api'
 import formatDateWithSlashes from './utilities/DateToString'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { OpportunitiesBarChart } from './chart'
+import { OpportunitiesBarChart } from './charts'
 import { fillOpportunityFrequencyData } from './utilities/opportunityDataCreation'
 import type { OpportunityApiData } from './types/apiTypes'
 import type { OpportunityFrequency } from './types/chartTypes';
@@ -17,7 +17,6 @@ function App() {
   const [nameDescriptionLinkRecords, setNameDescriptionLinkRecords] = useState<NameDescriptionLinkRecords[]>([]);
 
   const apiKey = import.meta.env.VITE_API_KEY;
-  console.log('API Key:', apiKey);
 
   const postedFromDate = new Date('2023-01-01');
   const postedToDate = new Date('2023-12-31');
@@ -68,9 +67,6 @@ function App() {
 
             const nameDescriptionLinkRecords = createNameDescriptionLinkRecords(opportunityApiData);
             const dataPoints = fillOpportunityFrequencyData(opportunityApiData);
-
-            console.log("dataPoints: " + JSON.stringify(dataPoints))
-            console.log("nameDescriptionLinkRecords: " + JSON.stringify(nameDescriptionLinkRecords))
 
             setChartData(dataPoints);
             setNameDescriptionLinkRecords(nameDescriptionLinkRecords)

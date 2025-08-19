@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { OpportunityApiData } from "../types/apiTypes";
 
-const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToDate: string, limit: number, naicsCodesInString: string) => {
+const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToDate: string, limit: number, naicsCodesInString: string): OpportunityApiData[] => {
     /* return await axios.get('https://api.sam.gov/opportunities/v2/search', {
                     method: 'GET',
                     headers: {
@@ -24,7 +24,7 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
                 name: "A",
                 infoJsonString: "",
                 noticeId: 1,
-                descriptionLink: "",
+                descriptionLink: "4",
                 type: "A",
                 code: 3,
                 otherLinks: []
@@ -33,7 +33,7 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
                 name: "A",
                 infoJsonString: "",
                 noticeId: 1,
-                descriptionLink: "",
+                descriptionLink: "5",
                 type: "A",
                 code: 3,
                 otherLinks: []
@@ -42,12 +42,12 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
                 name: "B",
                 infoJsonString: "",
                 noticeId: 1,
-                descriptionLink: "",
+                descriptionLink: "6",
                 type: "B",
                 code: 3,
                 otherLinks: []
             }
-        ]
+        ];
 
         return apiReturn
 }

@@ -14,8 +14,6 @@ export function OpportunitiesBarChart(props: numOpportunitiesBarChartProps) {
         data.push(props.dataPoints[i])
     }
 
-    console.log(JSON.stringify(data))
-
     return (
         <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data}>
