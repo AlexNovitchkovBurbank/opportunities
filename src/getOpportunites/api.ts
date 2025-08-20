@@ -23,8 +23,8 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
             {
                 name: "A",
                 infoJsonString: "",
-                noticeId: 1,
-                descriptionLink: "4",
+                noticeid: 1,
+                description: "4",
                 type: "A",
                 code: 3,
                 otherLinks: []
@@ -32,8 +32,8 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
             {
                 name: "A",
                 infoJsonString: "",
-                noticeId: 1,
-                descriptionLink: "5",
+                noticeid: 1,
+                description: "5",
                 type: "A",
                 code: 3,
                 otherLinks: []
@@ -41,8 +41,8 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
             {
                 name: "B",
                 infoJsonString: "",
-                noticeId: 1,
-                descriptionLink: "6",
+                noticeid: 1,
+                description: "6",
                 type: "B",
                 code: 3,
                 otherLinks: []

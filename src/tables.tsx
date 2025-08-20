@@ -16,8 +16,8 @@ export function NameDescriptionLinkTable(props: nameDescriptionLinkTableProps) {
     const tableBodyArray: any[] = []
     for (let i = 0; i < props.nameDescriptionLinkRecords.length; i++) {
         const nameCell = React.createElement("td", {}, props.nameDescriptionLinkRecords[i].name);
-        const descriptionLinkCell = React.createElement("td", {}, props.nameDescriptionLinkRecords[i].descriptionLink);
-        const tableRow = React.createElement("tr", {key: i}, nameCell, descriptionLinkCell);
+        const descriptionCell = React.createElement("td", {}, props.nameDescriptionLinkRecords[i].description);
+        const tableRow = React.createElement("tr", {key: i}, nameCell, descriptionCell);
         tableBodyArray.push(tableRow);
     }
     const tableBody = React.createElement("tbody", {key: tbodyKey}, tableBodyArray);

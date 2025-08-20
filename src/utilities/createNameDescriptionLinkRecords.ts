@@ -5,7 +5,7 @@ export function createNameDescriptionLinkRecords(nonprofitsApiData: OpportunityA
     let nameDescriptionLinkRecords: NameDescriptionLinkRecords[] = [];
 
     for (let i = 0; i < nonprofitsApiData.length; i++) {
-        let nameDescriptionLinkRecord = new NameDescriptionLinkRecords(nonprofitsApiData[i].name, nonprofitsApiData[i].descriptionLink);
+        let nameDescriptionLinkRecord = new NameDescriptionLinkRecords(nonprofitsApiData[i].name, nonprofitsApiData[i].description);
         nameDescriptionLinkRecords.push(nameDescriptionLinkRecord);
     }
 

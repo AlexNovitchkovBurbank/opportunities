@@ -1,18 +1,18 @@
 export class OpportunityApiData {
-    constructor(name: string, type: string, code: number, noticeId: number, descriptionLink: string, otherLinks: string[], infoJsonString: string) {
+    constructor(name: string, type: string, code: number, noticeid: number, description: string, otherLinks: string[], infoJsonString: string) {
         this.name = name;
         this.type = type;
         this.code = code;
-        this.noticeId = noticeId;
-        this.descriptionLink = descriptionLink;
+        this.noticeid = noticeid;
+        this.description = description;
         this.otherLinks = otherLinks;
         this.infoJsonString = infoJsonString;
     }
     name: string
     type: string
     code: number
-    noticeId: number
-    descriptionLink: string
+    noticeid: number
+    description: string
     otherLinks: string[]
     infoJsonString: string
 }
