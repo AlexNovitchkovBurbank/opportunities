@@ -5,7 +5,7 @@ import formatDateWithSlashes from './utilities/DateToString'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { OpportunitiesBarChart } from './charts'
 import { fillOpportunityFrequencyData } from './utilities/opportunityDataCreation'
-import type { OpportunityApiData } from './types/apiTypes'
+import { OpportunityApiData } from './types/apiTypes'
 import type { OpportunityFrequency } from './types/chartTypes';
 import { NameDescriptionLinkTable } from './tables';
 import type { NameDescriptionLinkRecords } from './types/tableTypes';
@@ -13,6 +13,7 @@ import { createNameDescriptionLinkRecords } from './utilities/createNameDescript
 
 function App() {
   const [error, setError] = useState<string>("");
+  const [opportunityApiData, setOpportunityApiData] = useState<OpportunityApiData[]>([]);
   const [chartData, setChartData] = useState<OpportunityFrequency[]>([]);
   const [nameDescriptionLinkRecords, setNameDescriptionLinkRecords] = useState<NameDescriptionLinkRecords[]>([]);
 
@@ -57,30 +58,25 @@ function App() {
     naicsCodeArrayAsString = naicsCodeArrayAsString + "," + naicsCodeArray[i].toString();
   }
 
-  let opportunityApiData: OpportunityApiData[] = [];
-
     useEffect(() => {
-      try {
-        const fetchOpportunities = () => {
-          if (apiKey !== undefined) {
-            opportunityApiData = api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, naicsCodeArrayAsString);
+      const fetchOpportunities = () => {
+        if (apiKey !== undefined) {
+          api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, naicsCodeArrayAsString)
+            .then((response => setOpportunityApiData(response)))
+            .catch(e => setError(e));
 
-            const nameDescriptionLinkRecords = createNameDescriptionLinkRecords(opportunityApiData);
-            const dataPoints = fillOpportunityFrequencyData(opportunityApiData);
+          const nameDescriptionLinkRecords = createNameDescriptionLinkRecords(opportunityApiData);
+          const dataPoints = fillOpportunityFrequencyData(opportunityApiData);
 
-            setChartData(dataPoints);
-            setNameDescriptionLinkRecords(nameDescriptionLinkRecords)
-          }
-          else {
-            console.error('No api key found');
-            setError('No api key found');
-          }
+          setChartData(dataPoints);
+          setNameDescriptionLinkRecords(nameDescriptionLinkRecords)
         }
-
-        fetchOpportunities()
-      } catch (e: any) {
-        setError(e)
-      } 
+        else {
+          setError('No api key found');
+        }
+      }
+      
+      fetchOpportunities()
     }, [])
 
   return (
