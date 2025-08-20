@@ -1,3 +1,6 @@
+Need to add a .env.dev file with VITE_API_KEY=<your api key>
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
