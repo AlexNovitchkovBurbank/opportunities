@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { OpportunityApiData } from "../types/apiTypes";
 
-const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToDate: string, limit: number, naicsCodesInString: string): Promise<OpportunityApiData[]> => {
+const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToDate: string, limit: number, naicsCodesInString: string): Promise<any> => {
     return axios.get('https://api.sam.gov/opportunities/v2/search', {
                 method: 'GET',
                 headers: {

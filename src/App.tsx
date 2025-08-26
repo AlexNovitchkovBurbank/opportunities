@@ -62,7 +62,7 @@ function App() {
       const fetchOpportunities = () => {
         if (apiKey !== undefined) {
           api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, naicsCodeArrayAsString)
-            .then((response => setOpportunityApiData(response)))
+            .then((response => setOpportunityApiData(response.data.opportunityData)))
             .catch(e => setError(e));
 
           const nameDescriptionLinkRecords = createNameDescriptionLinkRecords(opportunityApiData);
@@ -76,6 +76,7 @@ function App() {
         }
       }
       
+      console.log("opportunityApiData: ", opportunityApiData);
       fetchOpportunities()
     }, [])
 
