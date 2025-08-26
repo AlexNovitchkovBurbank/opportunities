@@ -12,7 +12,7 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
                     'api_key': apiKey,
                     'postedFrom': formattedPostedFromDate,
                     'postedTo': formattedPostedToDate,
-                    'limit': "2",
+                    'limit': limit.toString(),
                     'naicscode': naicsCodesInString,
                     'offset': '0'
                 }
