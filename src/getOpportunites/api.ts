@@ -7,13 +7,16 @@ const api = (apiKey: string, formattedPostedFromDate: string, formattedPostedToD
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
+                },
+                params: {
                     'api_key': apiKey,
                     'postedFrom': formattedPostedFromDate,
                     'postedTo': formattedPostedToDate,
-                    'limit': limit.toString(),
+                    'limit': "2",
                     'naicscode': naicsCodesInString,
-                    'offset': '0',
-                }})
+                    'offset': '0'
+                }
+                })
 
     /* const apiReturn: OpportunityApiData[] = [
         {

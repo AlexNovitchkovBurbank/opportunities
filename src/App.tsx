@@ -17,7 +17,7 @@ function App() {
   const [error, setError] = useState<string>("");
 
   // will store all the data even though I am explicitly wanting the properties from OpprtunityApiData
-  const [opportunityApiData, setOpportunityApiData] = useState<OpportunityApiData[]>([]);
+  const [opportunityApiData, setOpportunityApiData] = useState<unknown>([]);
   const [chartData, setChartData] = useState<OpportunityFrequency[]>([]);
   const [nameDescriptionLinkRecords, setNameDescriptionLinkRecords] = useState<NameDescriptionLinkRecords[]>([]);
 
@@ -66,7 +66,7 @@ function App() {
       const fetchOpportunities = () => {
         if (apiKey !== undefined) {
           api(apiKey, formattedPostedFromDate, formattedPostedToDate, limit, naicsCodeArrayAsString)
-            .then((response => setOpportunityApiData(response.data.opportunityData)))
+            .then((response => setOpportunityApiData(response.data.opportunitiesData)))
             .catch(e => setError(e));
 
           const nameDescriptionLinkRecords = createNameDescriptionLinkRecords(opportunityApiData);
