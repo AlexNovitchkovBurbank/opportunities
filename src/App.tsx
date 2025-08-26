@@ -12,7 +12,11 @@ import type { NameDescriptionLinkRecords } from './types/tableTypes';
 import { createNameDescriptionLinkRecords } from './utilities/createNameDescriptionLinkRecords';
 
 function App() {
+  // sets and gets variable values. For example error is a variable (string)
+  // and setError is a function that sets it (takes in a string)
   const [error, setError] = useState<string>("");
+
+  // will store all the data even though I am explicitly wanting the properties from OpprtunityApiData
   const [opportunityApiData, setOpportunityApiData] = useState<OpportunityApiData[]>([]);
   const [chartData, setChartData] = useState<OpportunityFrequency[]>([]);
   const [nameDescriptionLinkRecords, setNameDescriptionLinkRecords] = useState<NameDescriptionLinkRecords[]>([]);
